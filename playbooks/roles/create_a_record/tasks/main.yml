@@ -1,0 +1,13 @@
+
+ - include_vars: /U01/IT-Automations/infoblox/playbooks/info_vars1.yml
+
+ - name: Create Nios A record Test
+   infoblox.nios_modules.nios_a_record:
+     name: "{{ item.FQDN }}"
+     ipv4: "{{ item.IP }}"
+     comment: SYSADMIN-190876
+     state: present
+     provider: "{{ nios_provider }}"
+   tags:
+   - create
+

@@ -1,0 +1,40 @@
+
+ - include_vars: /U01/infoblox/infoblox-ansible/ansible_collections/infoblox/nios_modules/playbooks/vars/info_vars1.yml
+
+# - name: Reading the csv file
+#   read_csv:
+#     path: vars/userinput.yml
+#   register: user_list
+#   delegate_to: localhost
+#   tags:
+#   - always
+
+
+# - name: display user_list
+#   debug:
+#     var: user_list.list
+#   tags:
+#   - always
+
+ - name: Create Nios A record Test
+   infoblox.nios_modules.nios_a_record:
+     name: "{{ item.FQDN }}"
+     ipv4: "{{ item.IP }}"
+     comment: SYSADMIN-190876
+     state: present
+     provider: "{{ nios_provider }}"
+#   loop: "{{ user_list.list }}"
+   tags:
+   - create
+
+#   - name: delete Nios A record Test
+#     infoblox.nios_modules.nios_a_record:
+#       name: "{{ item.FQDN }}"
+#       ipv4: "{{ item.IP }}"
+#       comment: Created with Ansible
+#       state: absent
+#       provider: "{{ nios_provider }}"
+#     loop: "{{ user_list.list }}"
+#     tags:
+#     - delete
+

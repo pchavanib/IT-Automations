@@ -1,0 +1,41 @@
+---
+
+- hosts: localhost
+  connection: local
+  tasks:
+
+   - include_vars: vars/info_vars1.yml
+
+   - name: Reading User CSV file
+     read_csv:
+       path: vars/userinput.yml
+     register: user_list
+     delegate_to: localhost
+     tags:
+     - always
+
+
+   - name: Displaying what to get change
+     debug:
+       var: user_list.list
+     tags:
+     - always
+
+   - name: Running A record creation role
+     include_role:
+       name: create_a_record
+     loop: "{{ user_list.list }}"
+     tags:
+     - create 
+
+#   - name: delete Nios A record Test
+#     infoblox.nios_modules.nios_a_record:
+#       name: "{{ item.FQDN }}"
+#       ipv4: "{{ item.IP }}"
+#       comment: Created with Ansible
+#       state: absent
+#       provider: "{{ nios_provider }}"
+#     loop: "{{ user_list.list }}"
+#     tags:
+#     - delete
+

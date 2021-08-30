@@ -1,0 +1,12 @@
+
+ - include_vars: /U01/IT-Automations/infoblox/playbooks/vars/info_vars1.yml
+
+ - name: delete Nios A record Test
+   infoblox.nios_modules.nios_a_record:
+     name: "{{ item.FQDN }}"
+     ipv4: "{{ item.IP }}"
+     comment: SYSADMIN-190876
+     state: absent
+     provider: "{{ nios_provider }}"
+   tags:
+   - delete

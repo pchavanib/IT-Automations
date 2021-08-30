@@ -1,0 +1,4 @@
+nios_provider:
+  host: 10.100.4.76
+  username: admin
+  password: infoblox
